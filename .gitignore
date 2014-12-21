@@ -19,6 +19,8 @@ DerivedData
 *.hmap
 *.ipa
 
-# Bundler
-.bundle
-Example/Pods/
+# AppCode
+.idea/
+
+# CocoaPods
+Pods/

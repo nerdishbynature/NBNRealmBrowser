@@ -1,5 +1,9 @@
 PODS:
-  - NBNRealmBrowser (0.1.0)
+  - NBNRealmBrowser (0.1.0):
+    - Realm (~> 0.85)
+  - Realm (0.89.0):
+    - Realm/Headers (= 0.89.0)
+  - Realm/Headers (0.89.0)
 
 DEPENDENCIES:
   - NBNRealmBrowser (from `../`)
@@ -9,6 +13,7 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  NBNRealmBrowser: 6db330f1c01078bb1d64a02c0c8dea162fd27a20
+  NBNRealmBrowser: f84d7b5cc6f14a715072f61086eb61124c95df4e
+  Realm: 5923f6bac1337809f418295265bc0b454d4f3a38
 
 COCOAPODS: 0.35.0
