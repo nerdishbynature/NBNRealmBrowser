@@ -1,0 +1,14 @@
+PODS:
+  - NBNRealmBrowser (0.1.0)
+
+DEPENDENCIES:
+  - NBNRealmBrowser (from `../`)
+
+EXTERNAL SOURCES:
+  NBNRealmBrowser:
+    :path: ../
+
+SPEC CHECKSUMS:
+  NBNRealmBrowser: 6db330f1c01078bb1d64a02c0c8dea162fd27a20
+
+COCOAPODS: 0.35.0
