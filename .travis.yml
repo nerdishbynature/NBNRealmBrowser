@@ -1,12 +1,10 @@
-# references:
-# * http://www.objc.io/issue-6/travis-ci.html
-# * https://github.com/supermarin/xcpretty#usage
-
 language: objective-c
-# cache: cocoapods
-# podfile: Example/Podfile
-# before_install: cd Example && pod install && cd -
+cache: cocoapods
+podfile: Example/Podfile
 install:
 - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
+- gem install slather --no-rdoc --no-ri --no-document --quiet
 script:
-- set -o pipefail && xcodebuild test -workspace Example/NBNRealmBrowser.xcworkspace -scheme NBNRealmBrowser -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | xcpretty -c
+- set -o pipefail && xcodebuild test -workspace Example/NBNRealmBrowser.xcworkspace -scheme NBNRealmBrowser-Example -sdk iphonesimulator8.1 ONLY_ACTIVE_ARCH=NO -destination name="iPhone 5s" | xcpretty -c
+after_success:
+- slather

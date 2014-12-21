@@ -1,0 +1,4 @@
+xcodeproj: Example/NBNRealmBrowser.xcodeproj
+source_directory: Pod/Classes/
+ignore:
+  - Tests/*
