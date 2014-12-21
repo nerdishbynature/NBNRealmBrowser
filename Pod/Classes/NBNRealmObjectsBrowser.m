@@ -30,7 +30,6 @@
         _schema = object.objectSchema;
         _realm = result.realm;
         _properties = [_schema properties];
-        self.title = _schema.className;
     }
 
     return self;
@@ -43,7 +42,6 @@
         _schema = schema;
         _realm = realm;
         _properties = [_schema properties];
-        self.title = _schema.className;
     }
 
     return self;
@@ -76,6 +74,7 @@
         self.objects = [(RLMObject *)modelClass performSelector:@selector(allObjectsInRealm:) withObject:self.realm];
         [self.tableView reloadData];
     }
+    self.title = [NSString stringWithFormat:@"%u objects", self.objects.count];
 #if isIOS8
     if (self.searchControllerWasActive) {
         self.searchController.active = self.searchControllerWasActive;

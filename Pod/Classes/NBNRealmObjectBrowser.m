@@ -1,6 +1,11 @@
 #import "NBNRealmObjectBrowser.h"
 #import "NBNRealmObjectsBrowser.h"
 
+typedef NS_ENUM(NSUInteger, NBNRealmObjectBrowserSection) {
+    NBNRealmObjectBrowserSectionProperties,
+    NBNRealmObjectBrowserSectionDelete
+};
+
 @interface NBNRealmObjectBrowser ()
 @property (nonatomic) RLMObject *object;
 @property (nonatomic) RLMObjectSchema *schema;
@@ -22,62 +27,93 @@
     return self;
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.properties.count;
+    if (section == NBNRealmObjectBrowserSectionProperties) {
+        return self.properties.count;
+    } else {
+        return 1;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellIdentifier"];
+    if (indexPath.section == NBNRealmObjectBrowserSectionProperties) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellIdentifier"];
+
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CellIdentifier"];
+        }
+
+        cell.accessoryType = UITableViewCellAccessoryNone;
+
+        RLMProperty *aProperty = self.properties[(NSUInteger)indexPath.row];
+        cell.textLabel.text = aProperty.name;
+
+        switch (aProperty.type) {
+            case RLMPropertyTypeBool:
+                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                break;
+            case RLMPropertyTypeObject:
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                break;
+            case RLMPropertyTypeArray: {
+                RLMResults *value = [self.object objectForKeyedSubscript:aProperty.name];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%u objects", value.count];
+            }
+                break;
+            default: {
+                id value = [self.object objectForKeyedSubscript:aProperty.name];
+                cell.detailTextLabel.text = [value description];
+                break;
+            }
+        }
+        return cell;
+    }
+
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DeleteCellIdentifier"];
 
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CellIdentifier"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"DeleteCellIdentifier"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    cell.accessoryType = UITableViewCellAccessoryNone;
 
-    RLMProperty *aProperty = self.properties[(NSUInteger)indexPath.row];
-    cell.textLabel.text = aProperty.name;
-
-    switch (aProperty.type) {
-        case RLMPropertyTypeBool:
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-            break;
-        case RLMPropertyTypeObject:
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            break;
-        case RLMPropertyTypeArray: {
-            RLMResults *value = [self.object objectForKeyedSubscript:aProperty.name];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%u objects", value.count];
-        }
-            break;
-        default: {
-            id value = [self.object objectForKeyedSubscript:aProperty.name];
-            cell.detailTextLabel.text = [value description];
-            break;
-        }
-    }
+    cell.textLabel.text = @"Delete Entity";
+    cell.textLabel.textAlignment = NSTextAlignmentCenter;
+    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.contentView.backgroundColor = [UIColor redColor];
 
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    RLMProperty *aProperty = self.properties[(NSUInteger)indexPath.row];
-    switch (aProperty.type) {
-        case RLMPropertyTypeObject: {
-            RLMObject *object = [self.object objectForKeyedSubscript:aProperty.name];
-            NBNRealmObjectBrowser *objectBrowser = [[NBNRealmObjectBrowser alloc] initWithObject:object];
-            [self.navigationController pushViewController:objectBrowser animated:YES];
+    if (indexPath.section == NBNRealmObjectBrowserSectionProperties) {
+        RLMProperty *aProperty = self.properties[(NSUInteger) indexPath.row];
+        switch (aProperty.type) {
+            case RLMPropertyTypeObject: {
+                RLMObject *object = [self.object objectForKeyedSubscript:aProperty.name];
+                NBNRealmObjectBrowser *objectBrowser = [[NBNRealmObjectBrowser alloc] initWithObject:object];
+                [self.navigationController pushViewController:objectBrowser animated:YES];
+            }
+                break;
+            case RLMPropertyTypeArray: {
+                RLMResults *value = [self.object objectForKeyedSubscript:aProperty.name];
+                NBNRealmObjectsBrowser *objectsBrowser = [[NBNRealmObjectsBrowser alloc] initWithObjects:value];
+                [self.navigationController pushViewController:objectsBrowser animated:YES];
+            }
+                break;
+            default:
+                [tableView deselectRowAtIndexPath:indexPath animated:NO];
+                break;
         }
-            break;
-        case RLMPropertyTypeArray: {
-            RLMResults *value = [self.object objectForKeyedSubscript:aProperty.name];
-            NBNRealmObjectsBrowser *objectsBrowser = [[NBNRealmObjectsBrowser alloc] initWithObjects:value];
-            [self.navigationController pushViewController:objectsBrowser animated:YES];
-        }
-            break;
-        default:
-            [tableView deselectRowAtIndexPath:indexPath animated:NO];
-            break;
+    } else if (indexPath.section == NBNRealmObjectBrowserSectionDelete) {
+        [self.object.realm transactionWithBlock:^{
+            [self.object.realm deleteObject:self.object];
+        }];
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 

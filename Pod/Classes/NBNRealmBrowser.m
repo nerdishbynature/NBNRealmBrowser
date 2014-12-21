@@ -61,6 +61,7 @@ static NSString *CellIdentifier = @"CellIdentifier";
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [self.tableView reloadData];
 #if isIOS8
     if (self.searchControllerWasActive) {
         self.searchController.active = self.searchControllerWasActive;
