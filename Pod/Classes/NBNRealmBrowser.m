@@ -1,5 +1,7 @@
 #import "NBNRealmBrowser.h"
 #import "NBNRealmObjectsBrowser.h"
+#import "NBNEmptyViewController.h"
+#include "UIViewController+NBNNavigation.h"
 #import <Realm/Realm.h>
 
 #define isIOS8 __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
@@ -22,6 +24,22 @@ static NSString *CellIdentifier = @"CellIdentifier";
 
 @implementation NBNRealmBrowser
 
++ (id)browserWithRealm:(RLMRealm *)realm {
+    NBNRealmBrowser *realmBrowser = [[NBNRealmBrowser alloc] init];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:realmBrowser];
+#if isIOS8
+    UISplitViewController *splitViewController = [[UISplitViewController alloc] init];
+    splitViewController.viewControllers = @[navController];
+    return splitViewController;
+#else
+    return navController;
+#endif
+}
+
++ (id)browser {
+    return [self browserWithRealm:[RLMRealm defaultRealm]];
+}
+
 - (instancetype)init {
     return [self initWithRealm:[RLMRealm defaultRealm]];
 }
@@ -43,6 +61,9 @@ static NSString *CellIdentifier = @"CellIdentifier";
     [super viewDidLoad];
     [self setupDismissButton];
     [self setupSearch];
+    NBNEmptyViewController *emptyViewController = [[NBNEmptyViewController alloc] init];
+    UINavigationController *detailNavController = [[UINavigationController alloc] initWithRootViewController:emptyViewController];
+    [self nbn_showDetailViewController:detailNavController animated:NO];
 }
 
 - (void)setupSearch {
@@ -110,7 +131,7 @@ static NSString *CellIdentifier = @"CellIdentifier";
     cell.textLabel.text = schema.className;
     Class modelClass = NSClassFromString(schema.className);
     RLMResults *objects = [(RLMObject *)modelClass performSelector:@selector(allObjectsInRealm:) withObject:self.realm];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%u objects", objects.count];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu objects", (unsigned long)objects.count];
 
     return cell;
 }

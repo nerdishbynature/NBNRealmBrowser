@@ -4,6 +4,7 @@
 
 @interface NBNRealmBrowser : UITableViewController
 
-- (instancetype)initWithRealm:(RLMRealm *)realm;
++ (id)browserWithRealm:(RLMRealm *)realm;
++ (id)browser;
 
 @end

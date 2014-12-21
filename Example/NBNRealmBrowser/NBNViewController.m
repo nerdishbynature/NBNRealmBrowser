@@ -21,9 +21,7 @@
 }
 
 - (void)openRealmBrowser:(id)sender {
-    NBNRealmBrowser *realmBrowser = [[NBNRealmBrowser alloc] init];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:realmBrowser];
-    [self presentViewController:navController animated:YES completion:nil];
+    [self presentViewController:[NBNRealmBrowser browser] animated:YES completion:nil];
 }
 
 @end

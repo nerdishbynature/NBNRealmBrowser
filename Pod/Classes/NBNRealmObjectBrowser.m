@@ -1,5 +1,6 @@
 #import "NBNRealmObjectBrowser.h"
 #import "NBNRealmObjectsBrowser.h"
+#import "UIViewController+NBNNavigation.h"
 
 typedef NS_ENUM(NSUInteger, NBNRealmObjectBrowserSection) {
     NBNRealmObjectBrowserSectionProperties,
@@ -96,13 +97,13 @@ typedef NS_ENUM(NSUInteger, NBNRealmObjectBrowserSection) {
             case RLMPropertyTypeObject: {
                 RLMObject *object = [self.object objectForKeyedSubscript:aProperty.name];
                 NBNRealmObjectBrowser *objectBrowser = [[NBNRealmObjectBrowser alloc] initWithObject:object];
-                [self.navigationController pushViewController:objectBrowser animated:YES];
+                [self nbn_showDetailViewController:objectBrowser animated:YES];
             }
                 break;
             case RLMPropertyTypeArray: {
                 RLMResults *value = [self.object objectForKeyedSubscript:aProperty.name];
                 NBNRealmObjectsBrowser *objectsBrowser = [[NBNRealmObjectsBrowser alloc] initWithObjects:value];
-                [self.navigationController pushViewController:objectsBrowser animated:YES];
+                [self nbn_showViewController:objectsBrowser animated:YES];
             }
                 break;
             default:
@@ -113,7 +114,7 @@ typedef NS_ENUM(NSUInteger, NBNRealmObjectBrowserSection) {
         [self.object.realm transactionWithBlock:^{
             [self.object.realm deleteObject:self.object];
         }];
-        [self.navigationController popViewControllerAnimated:YES];
+        [self nbn_popViewControllerAnimated:YES];
     }
 }
 

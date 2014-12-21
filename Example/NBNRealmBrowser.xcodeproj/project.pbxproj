@@ -27,6 +27,7 @@
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		D5EC18FA7764B5464E5EA6CF /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53B546E3B4C7EE76E71EAE89 /* libPods.a */; };
 		E64A1B9322FEC3528B4F430C /* libPods-NBNRealmBrowser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C2F505E76EE95A62CA6E2266 /* libPods-NBNRealmBrowser.a */; };
+		F0F33A461A473CF300A40277 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F0F33A451A473CF300A40277 /* Launch Screen.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +79,7 @@
 		C2F505E76EE95A62CA6E2266 /* libPods-NBNRealmBrowser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NBNRealmBrowser.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE6ED7B90FCF6625F4CEBAEA /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		EF057A45EC0000A643108F1E /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		F0F33A451A473CF300A40277 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +171,7 @@
 				6003F596195388D20070C39A /* InfoPlist.strings */,
 				6003F599195388D20070C39A /* main.m */,
 				6003F59B195388D20070C39A /* NBNRealmBrowser-Prefix.pch */,
+				F0F33A451A473CF300A40277 /* Launch Screen.xib */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -267,6 +270,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Piet Brauer";
 				TargetAttributes = {
+					6003F589195388D20070C39A = {
+						DevelopmentTeam = 3NPZ2HXWU8;
+					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
 					};
@@ -297,6 +303,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
+				F0F33A461A473CF300A40277 /* Launch Screen.xib in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 				1643A86A5E4A6196117BBD69 /* default.realm in Resources */,
 			);
@@ -509,6 +516,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NBNRealmBrowser/NBNRealmBrowser-Prefix.pch";
 				INFOPLIST_FILE = "NBNRealmBrowser/NBNRealmBrowser-Info.plist";
@@ -524,6 +532,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NBNRealmBrowser/NBNRealmBrowser-Prefix.pch";
 				INFOPLIST_FILE = "NBNRealmBrowser/NBNRealmBrowser-Info.plist";

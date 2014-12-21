@@ -2,6 +2,8 @@
 #import "NBNViewController.h"
 #import "RLMRealm.h"
 
+#define isIOS8 __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
+
 @implementation NBNAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {

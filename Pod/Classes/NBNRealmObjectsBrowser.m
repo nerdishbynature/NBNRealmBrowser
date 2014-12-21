@@ -1,5 +1,6 @@
 #import "NBNRealmObjectsBrowser.h"
 #import "NBNRealmObjectBrowser.h"
+#import "UIViewController+NBNNavigation.h"
 
 #define isIOS8 __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
 
@@ -75,7 +76,7 @@
         self.objects = [(RLMObject *)modelClass performSelector:@selector(allObjectsInRealm:) withObject:self.realm];
         [self.tableView reloadData];
     }
-    self.title = [NSString stringWithFormat:@"%u objects", self.objects.count];
+    self.title = [NSString stringWithFormat:@"%lu objects", (unsigned long)self.objects.count];
 #if isIOS8
     if (self.searchControllerWasActive) {
         self.searchController.active = self.searchControllerWasActive;
@@ -141,7 +142,7 @@
     }
 #endif
     NBNRealmObjectBrowser *objectBrowser = [[NBNRealmObjectBrowser alloc] initWithObject:object];
-    [self.navigationController pushViewController:objectBrowser animated:YES];
+    [self nbn_showDetailViewController:objectBrowser animated:YES];
 }
 
 #pragma mark - Helper
