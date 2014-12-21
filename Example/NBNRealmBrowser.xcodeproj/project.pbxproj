@@ -12,6 +12,7 @@
 		1643A5E1C430B13164122F87 /* RealmTestClass0.m in Sources */ = {isa = PBXBuildFile; fileRef = 1643A03B989486FEE372A3ED /* RealmTestClass0.m */; };
 		1643A7E63E764C87241F4288 /* RealmTestClass1.m in Sources */ = {isa = PBXBuildFile; fileRef = 1643A6D762CDB15279A61022 /* RealmTestClass1.m */; };
 		1643A86A5E4A6196117BBD69 /* default.realm in Resources */ = {isa = PBXBuildFile; fileRef = 1643AF4B7150FB5FF636E955 /* default.realm */; };
+		1643ACF4479FB5889B357122 /* NBNRealmBrowserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1643AC11CE6947D5E58BCE2D /* NBNRealmBrowserTests.m */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -44,6 +45,7 @@
 		1643A32999C66A02B253AD6D /* RealmTestClass2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealmTestClass2.m; sourceTree = "<group>"; };
 		1643A3F3DB1513A92BC3E2E3 /* RealmTestClass2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealmTestClass2.h; sourceTree = "<group>"; };
 		1643A6D762CDB15279A61022 /* RealmTestClass1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealmTestClass1.m; sourceTree = "<group>"; };
+		1643AC11CE6947D5E58BCE2D /* NBNRealmBrowserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBNRealmBrowserTests.m; sourceTree = "<group>"; };
 		1643ACC7C43D90BFE1F06025 /* RealmTestClass0.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealmTestClass0.h; sourceTree = "<group>"; };
 		1643AE0028D60C8B0B15D8D5 /* RealmTestClass1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealmTestClass1.h; sourceTree = "<group>"; };
 		1643AF4B7150FB5FF636E955 /* default.realm */ = {isa = PBXFileReference; lastKnownFileType = file.realm; path = default.realm; sourceTree = SOURCE_ROOT; };
@@ -175,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				6003F5B6195388D20070C39A /* Supporting Files */,
+				1643AC11CE6947D5E58BCE2D /* NBNRealmBrowserTests.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -390,6 +393,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1643ACF4479FB5889B357122 /* NBNRealmBrowserTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,6 +535,7 @@
 		};
 		6003F5C3195388D20070C39A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2DD7EFC780793CBBEC3215F5 /* Pods-Tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/NBNRealmBrowser.app/NBNRealmBrowser";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -553,6 +558,7 @@
 		};
 		6003F5C4195388D20070C39A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7DF5BB34743466F54BB3DB37 /* Pods-Tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/NBNRealmBrowser.app/NBNRealmBrowser";
 				FRAMEWORK_SEARCH_PATHS = (

@@ -49,6 +49,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tableView.accessibilityIdentifier = NSStringFromClass(self.class);
     [self setupSearch];
 }
 
