@@ -84,9 +84,11 @@ static NSString *CellIdentifier = @"CellIdentifier";
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+#if isIOS8
     if (tableView == [(NBNRealmBrowser *)self.searchController.searchResultsController tableView]) {
         return self.searchResults.count;
     }
+#endif
     return self.objectSchema.count;
 }
 
