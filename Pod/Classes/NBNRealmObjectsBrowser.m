@@ -1,5 +1,5 @@
 #import "NBNRealmObjectsBrowser.h"
-#import <Realm/Realm.h>
+#import "NBNRealmObjectBrowser.h"
 
 @interface NBNRealmObjectsBrowser ()
 @property (nonatomic) RLMObjectSchema *schema;
@@ -10,12 +10,29 @@
 
 @implementation NBNRealmObjectsBrowser
 
+- (instancetype)initWithObjects:(RLMResults *)result {
+    self = [super initWithStyle:UITableViewStylePlain];
+
+    if (self) {
+        RLMObject *object = result.firstObject;
+        _objects = result;
+        _schema = object.objectSchema;
+        _realm = result.realm;
+        _properties = [_schema properties];
+        self.title = _schema.className;
+    }
+
+    return self;
+}
+
 - (instancetype)initWithObjectSchema:(RLMObjectSchema *)schema inRealm:(RLMRealm *)realm {
-    self = [super initWithStyle:UITableViewStyleGrouped];
+    self = [super initWithStyle:UITableViewStylePlain];
 
     if (self) {
         _schema = schema;
         _realm = realm;
+        _properties = [_schema properties];
+        self.title = _schema.className;
     }
 
     return self;
@@ -23,11 +40,11 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    self.title = self.schema.className;
     Class modelClass = NSClassFromString(self.schema.className);
-    self.properties = [self.schema properties];
-    self.objects = [(RLMObject *)modelClass performSelector:@selector(allObjectsInRealm:) withObject:self.realm];
-    [self.tableView reloadData];
+    if (!self.objects) {
+        self.objects = [(RLMObject *)modelClass performSelector:@selector(allObjectsInRealm:) withObject:self.realm];
+        [self.tableView reloadData];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -61,6 +78,16 @@
 
     return cell;
 }
+
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    RLMObject *object = self.objects[(NSUInteger)indexPath.row];
+    NBNRealmObjectBrowser *objectBrowser = [[NBNRealmObjectBrowser alloc] initWithObject:object];
+    [self.navigationController pushViewController:objectBrowser animated:YES];
+}
+
+#pragma mark - Helper
 
 - (NSString *)stringForProperty:(RLMProperty *)aProperty inObject:(RLMObject *)object {
     NSString *stringValue;

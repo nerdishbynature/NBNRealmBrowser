@@ -21,6 +21,7 @@ static NSString *CellIdentifier = @"CellIdentifier";
     if (self) {
         _realm = realm;
         _objectSchema = _realm.schema.objectSchema;
+        self.title = @"Classes";
     }
 
     return self;
