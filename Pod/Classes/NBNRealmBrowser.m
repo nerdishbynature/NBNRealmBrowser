@@ -29,6 +29,7 @@ static NSString *CellIdentifier = @"CellIdentifier";
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:realmBrowser];
 #if isIOS8
     UISplitViewController *splitViewController = [[UISplitViewController alloc] init];
+    splitViewController.modalPresentationStyle = UIModalTransitionStyleCoverVertical;
     splitViewController.viewControllers = @[navController];
     return splitViewController;
 #else

@@ -28,6 +28,12 @@ typedef NS_ENUM(NSUInteger, NBNRealmObjectBrowserSection) {
     return self;
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.navigationItem.leftBarButtonItem = [self.splitViewController displayModeButtonItem];
+    self.navigationItem.leftItemsSupplementBackButton = YES;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
 }
