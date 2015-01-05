@@ -38,7 +38,7 @@
 
     [tester tapViewWithAccessibilityLabel:@"Delete Entity"];
 
-    [tester waitForViewWithAccessibilityLabel:@"999 objects"];
+    [tester tapViewWithAccessibilityLabel:@"1000 objects"];
 
     [tester tapViewWithAccessibilityLabel:@"Classes"];
     [tester waitForViewWithAccessibilityLabel:@"RealmTestClass2, 999 objects"];
