@@ -69,7 +69,7 @@ typedef NS_ENUM(NSUInteger, NBNRealmObjectBrowserSection) {
             case RLMPropertyTypeArray: {
                 RLMResults *value = [self.object objectForKeyedSubscript:aProperty.name];
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%u objects", value.count];
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu objects", (unsigned long)value.count];
             }
                 break;
             default: {

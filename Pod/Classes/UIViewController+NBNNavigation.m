@@ -1,5 +1,4 @@
 #import "UIViewController+NBNNavigation.h"
-#import <objc/objc-runtime.h>
 
 @implementation UIViewController (NBNNavigation)
 
