@@ -1,5 +1,5 @@
 #import "NBNViewController.h"
-#import "NBNRealmBrowser.h"
+#import <NBNRealmBrowser/NBNRealmBrowser.h>
 
 @interface NBNViewController ()
 

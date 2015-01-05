@@ -1,12 +1,13 @@
 Pod::Spec.new do |s|
   s.name             = "NBNRealmBrowser"
   s.version          = "0.1.0"
-  s.summary          = "A short description of NBNRealmBrowser."
+  s.summary          = "NBNRealmBrowser is the iOS companion to the
+                        Realm Browser for Mac."
   s.description      = <<-DESC
-                       An optional longer description of NBNRealmBrowser
-
-                       * Markdown format.
-                       * Don't worry about the indent, we strip it!
+                        NBNRealmBrowser is the iOS companion to the
+                        Realm Browser for Mac.
+                        It displays all information for your current
+                        Realm for debugging purposes.
                        DESC
   s.homepage         = "https://github.com/nerdishbynature/NBNRealmBrowser"
   s.license          = 'MIT'
