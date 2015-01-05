@@ -4,9 +4,9 @@ PODS:
   - KIF/XCTest (3.1.0)
   - NBNRealmBrowser (0.1.0):
     - Realm (~> 0.85)
-  - Realm (0.89.0):
-    - Realm/Headers (= 0.89.0)
-  - Realm/Headers (0.89.0)
+  - Realm (0.89.2):
+    - Realm/Headers (= 0.89.2)
+  - Realm/Headers (0.89.2)
 
 DEPENDENCIES:
   - KIF (~> 3.1.0)
@@ -19,6 +19,6 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   KIF: de7c7f4aea08179c65d963a3c5ec438ee6408e8c
   NBNRealmBrowser: f84d7b5cc6f14a715072f61086eb61124c95df4e
-  Realm: 5923f6bac1337809f418295265bc0b454d4f3a38
+  Realm: 4ba08033bea6a32e49eebcfd41e5fd651168135b
 
 COCOAPODS: 0.35.0
