@@ -4,8 +4,8 @@
 
 @interface UIViewController (NBNNavigation)
 
-- (void)nbn_showViewController:(UIViewController *)viewController animated:(BOOL)animated;
-- (void)nbn_showDetailViewController:(UIViewController *)viewController animated:(BOOL)animated;
+- (UINavigationController *)detailNavigationController;
+- (UINavigationController *)masterNavigationController;
 - (void)nbn_popViewControllerAnimated:(BOOL)animated;
 
 @end

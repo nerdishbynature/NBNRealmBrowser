@@ -1,35 +1,36 @@
 #import "UIViewController+NBNNavigation.h"
-#import "NBNEmptyViewController.h"
+#import <objc/objc-runtime.h>
 
 @implementation UIViewController (NBNNavigation)
 
-- (void)nbn_showViewController:(UIViewController *)viewController animated:(BOOL)animated {
-#if isIOS8
-    [self.splitViewController showViewController:viewController sender:self];
-#else
-    [self.navigationController pushViewController:viewController animated:animated];
-#endif
-}
-
-- (void)nbn_showDetailViewController:(UIViewController *)viewController animated:(BOOL)animated {
-#if isIOS8
-    if (![viewController isKindOfClass:[UINavigationController class]]) {
-        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
-        [self.splitViewController showDetailViewController:navController sender:self];
-    } else {
-        [self.splitViewController showDetailViewController:viewController sender:self];
-    }
-#else
-    [self.navigationController pushViewController:viewController animated:animated];
-#endif
-}
-
 - (void)nbn_popViewControllerAnimated:(BOOL)animated {
-#if isIOS8
-    NBNEmptyViewController *emptyViewController = [[NBNEmptyViewController alloc] init];
-    [self nbn_showDetailViewController:emptyViewController animated:NO];
+    UIViewController *viewController = [[UIViewController alloc] init];
+    [self.detailNavigationController setViewControllers:@[viewController] animated:NO];
+}
+
+- (UINavigationController *)detailNavigationController {
+#ifdef isIOS8
+    static UINavigationController *detailNavigationController = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        detailNavigationController = [[UINavigationController alloc] init];
+    });
+    return detailNavigationController;
 #else
-    [self.navigationController popViewControllerAnimated:animated];
+    return self.navigationController;
+#endif
+}
+
+- (UINavigationController *)masterNavigationController {
+#ifdef isIOS8
+    static UINavigationController *masterNavigationController = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        masterNavigationController = [[UINavigationController alloc] init];
+    });
+    return masterNavigationController;
+#else
+    return self.navigationController;
 #endif
 }
 

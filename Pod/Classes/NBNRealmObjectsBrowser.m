@@ -142,7 +142,17 @@
     }
 #endif
     NBNRealmObjectBrowser *objectBrowser = [[NBNRealmObjectBrowser alloc] initWithObject:object];
-    [self nbn_showDetailViewController:objectBrowser animated:YES];
+#ifdef isIOS8
+    if ([self.detailNavigationController.viewControllers containsObject:self]) {
+        // if tapped from detail view
+        [self.detailNavigationController pushViewController:objectBrowser animated:YES];
+    } else {
+        [self.detailNavigationController setViewControllers:@[objectBrowser] animated:NO];
+        [self.splitViewController showDetailViewController:self.detailNavigationController sender:self];
+    }
+#else
+    [self.detailNavigationController pushViewController:objectBrowser animated:YES];
+#endif
 }
 
 #pragma mark - Helper

@@ -1,7 +1,6 @@
 #import "NBNRealmBrowser.h"
 #import "NBNRealmObjectsBrowser.h"
-#import "NBNEmptyViewController.h"
-#include "UIViewController+NBNNavigation.h"
+#import "UIViewController+NBNNavigation.h"
 #import <Realm/Realm.h>
 
 #define isIOS8 __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
@@ -26,13 +25,14 @@ static NSString *CellIdentifier = @"CellIdentifier";
 
 + (id)browserWithRealm:(RLMRealm *)realm {
     NBNRealmBrowser *realmBrowser = [[NBNRealmBrowser alloc] init];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:realmBrowser];
 #if isIOS8
     UISplitViewController *splitViewController = [[UISplitViewController alloc] init];
     splitViewController.modalPresentationStyle = UIModalTransitionStyleCoverVertical;
-    splitViewController.viewControllers = @[navController];
+    [realmBrowser.masterNavigationController pushViewController:realmBrowser animated:NO];
+    splitViewController.viewControllers = @[realmBrowser.masterNavigationController];
     return splitViewController;
 #else
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:realmBrowser];
     return navController;
 #endif
 }
@@ -62,9 +62,6 @@ static NSString *CellIdentifier = @"CellIdentifier";
     [super viewDidLoad];
     [self setupDismissButton];
     [self setupSearch];
-    NBNEmptyViewController *emptyViewController = [[NBNEmptyViewController alloc] init];
-    UINavigationController *detailNavController = [[UINavigationController alloc] initWithRootViewController:emptyViewController];
-    [self nbn_showDetailViewController:detailNavController animated:NO];
 }
 
 - (void)setupSearch {
@@ -148,7 +145,7 @@ static NSString *CellIdentifier = @"CellIdentifier";
 #endif
     NBNRealmObjectsBrowser *objectsBrowser = [[NBNRealmObjectsBrowser alloc] initWithObjectSchema:schema
                                                                                           inRealm:self.realm];
-    [self.navigationController pushViewController:objectsBrowser animated:YES];
+    [self.masterNavigationController pushViewController:objectsBrowser animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 

@@ -103,13 +103,19 @@ typedef NS_ENUM(NSUInteger, NBNRealmObjectBrowserSection) {
             case RLMPropertyTypeObject: {
                 RLMObject *object = [self.object objectForKeyedSubscript:aProperty.name];
                 NBNRealmObjectBrowser *objectBrowser = [[NBNRealmObjectBrowser alloc] initWithObject:object];
-                [self nbn_showDetailViewController:objectBrowser animated:YES];
+                [self.detailNavigationController pushViewController:objectBrowser animated:YES];
+#ifdef isIOS8
+                [self.splitViewController showDetailViewController:self.detailNavigationController sender:self];
+#endif
             }
                 break;
             case RLMPropertyTypeArray: {
                 RLMResults *value = [self.object objectForKeyedSubscript:aProperty.name];
                 NBNRealmObjectsBrowser *objectsBrowser = [[NBNRealmObjectsBrowser alloc] initWithObjects:value];
-                [self nbn_showViewController:objectsBrowser animated:YES];
+                [self.detailNavigationController pushViewController:objectsBrowser animated:YES];
+#ifdef isIOS8
+                [self.splitViewController showDetailViewController:self.detailNavigationController sender:self];
+#endif
             }
                 break;
             default:
