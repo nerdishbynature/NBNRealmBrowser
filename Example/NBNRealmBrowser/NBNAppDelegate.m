@@ -14,6 +14,13 @@
     self.window.rootViewController = navController;
 
     [self copyDataBaseIfNeeded];
+    [RLMRealm setSchemaVersion:1 withMigrationBlock:^(RLMMigration *migration, NSUInteger oldSchemaVersion) {
+        if (oldSchemaVersion < 1) {
+            // Nothing to do!
+            // Realm will automatically detect new properties and removed properties
+            // And will update the schema on disk automatically
+        }
+    }];
     [RLMRealm defaultRealm];
 
     self.window.backgroundColor = [UIColor whiteColor];
