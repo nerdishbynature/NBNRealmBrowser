@@ -33,7 +33,7 @@
     [tester waitForViewWithAccessibilityLabel:@"1000 objects"];
     [tester tapRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] inTableViewWithAccessibilityIdentifier:@"NBNRealmObjectsBrowser"];
     [tester waitForViewWithAccessibilityLabel:@"integerValue, 2039979"];
-    [tester waitForViewWithAccessibilityLabel:@"boolValue" traits:UIAccessibilityTraitSelected|UIAccessibilityTraitStaticText];
+    [tester waitForViewWithAccessibilityLabel:@"boolValue" traits:UIAccessibilityTraitStaticText];
     [tester waitForViewWithAccessibilityLabel:@"objectReference"];
 
     [tester tapViewWithAccessibilityLabel:@"Delete Entity"];
