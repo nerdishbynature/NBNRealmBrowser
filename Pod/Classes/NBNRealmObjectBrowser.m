@@ -1,16 +1,18 @@
 #import "NBNRealmObjectBrowser.h"
 #import "NBNRealmObjectsBrowser.h"
 #import "UIViewController+NBNNavigation.h"
+#import "NBNRealmPropertyCell.h"
 
 typedef NS_ENUM(NSUInteger, NBNRealmObjectBrowserSection) {
     NBNRealmObjectBrowserSectionProperties,
     NBNRealmObjectBrowserSectionDelete
 };
 
-@interface NBNRealmObjectBrowser ()
+@interface NBNRealmObjectBrowser () <NBNRealmPropertyCellDelegate>
 @property (nonatomic) RLMObject *object;
 @property (nonatomic) RLMObjectSchema *schema;
 @property (nonatomic) NSArray *properties;
+@property (nonatomic, assign) BOOL editingModeEnabled;
 @end
 
 @implementation NBNRealmObjectBrowser
@@ -32,6 +34,11 @@ typedef NS_ENUM(NSUInteger, NBNRealmObjectBrowserSection) {
     [super viewDidLoad];
     self.navigationItem.leftBarButtonItem = [self.splitViewController displayModeButtonItem];
     self.navigationItem.leftItemsSupplementBackButton = YES;
+    UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
+                                                                   style:UIBarButtonItemStylePlain
+                                                                  target:self
+                                                                  action:@selector(toggleEditing:)];
+    self.navigationItem.rightBarButtonItem = editButton;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -48,36 +55,16 @@ typedef NS_ENUM(NSUInteger, NBNRealmObjectBrowserSection) {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == NBNRealmObjectBrowserSectionProperties) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellIdentifier"];
+        NBNRealmPropertyCell *cell = (NBNRealmPropertyCell *)[tableView dequeueReusableCellWithIdentifier:@"CellIdentifier"];
 
         if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CellIdentifier"];
+            cell = [[NBNRealmPropertyCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CellIdentifier"];
+            cell.delegate = self;
         }
-
-        cell.accessoryType = UITableViewCellAccessoryNone;
 
         RLMProperty *aProperty = self.properties[(NSUInteger)indexPath.row];
-        cell.textLabel.text = aProperty.name;
+        [cell configureWithProperty:aProperty editMode:self.editingModeEnabled object:self.object];
 
-        switch (aProperty.type) {
-            case RLMPropertyTypeBool:
-                cell.accessoryType = UITableViewCellAccessoryCheckmark;
-                break;
-            case RLMPropertyTypeObject:
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                break;
-            case RLMPropertyTypeArray: {
-                RLMResults *value = [self.object objectForKeyedSubscript:aProperty.name];
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu objects", (unsigned long)value.count];
-            }
-                break;
-            default: {
-                id value = [self.object objectForKeyedSubscript:aProperty.name];
-                cell.detailTextLabel.text = [value description];
-                break;
-            }
-        }
         return cell;
     }
 
@@ -104,18 +91,12 @@ typedef NS_ENUM(NSUInteger, NBNRealmObjectBrowserSection) {
                 RLMObject *object = [self.object objectForKeyedSubscript:aProperty.name];
                 NBNRealmObjectBrowser *objectBrowser = [[NBNRealmObjectBrowser alloc] initWithObject:object];
                 [self.detailNavigationController pushViewController:objectBrowser animated:YES];
-#ifdef isIOS8
-                [self.splitViewController showDetailViewController:self.detailNavigationController sender:self];
-#endif
             }
                 break;
             case RLMPropertyTypeArray: {
                 RLMResults *value = [self.object objectForKeyedSubscript:aProperty.name];
                 NBNRealmObjectsBrowser *objectsBrowser = [[NBNRealmObjectsBrowser alloc] initWithObjects:value];
                 [self.detailNavigationController pushViewController:objectsBrowser animated:YES];
-#ifdef isIOS8
-                [self.splitViewController showDetailViewController:self.detailNavigationController sender:self];
-#endif
             }
                 break;
             default:
@@ -128,6 +109,18 @@ typedef NS_ENUM(NSUInteger, NBNRealmObjectBrowserSection) {
         }];
         [self nbn_popViewControllerAnimated:YES];
     }
+}
+
+#pragma mark - Editing
+
+- (void)toggleEditing:(UIBarButtonItem *)sender {
+    self.editingModeEnabled = !self.editingModeEnabled;
+    sender.title = self.editingModeEnabled ? @"Done" : @"Edit";
+    [self.tableView reloadData];
+}
+
+- (void)cellDidFinishEditing:(NBNRealmPropertyCell *)cell {
+    [self toggleEditing:self.navigationItem.rightBarButtonItem];
 }
 
 @end
