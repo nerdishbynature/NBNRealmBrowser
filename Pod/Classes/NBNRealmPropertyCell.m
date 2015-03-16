@@ -1,4 +1,5 @@
 #import "NBNRealmPropertyCell.h"
+#import <Realm/Realm.h>
 
 @interface NBNRealmPropertyCell () <UITextFieldDelegate>
 @property (nonatomic) RLMProperty *property;

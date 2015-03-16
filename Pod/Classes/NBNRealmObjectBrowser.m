@@ -2,6 +2,7 @@
 #import "NBNRealmObjectsBrowser.h"
 #import "UIViewController+NBNNavigation.h"
 #import "NBNRealmPropertyCell.h"
+#import <Realm/RLMObjectSchema.h>
 
 typedef NS_ENUM(NSUInteger, NBNRealmObjectBrowserSection) {
     NBNRealmObjectBrowserSectionProperties,

@@ -1,5 +1,6 @@
 #import <UIKit/UIKit.h>
-#import <Realm/Realm.h>
+#import <Realm/RLMProperty.h>
+#import <Realm/RLMObject.h>
 
 @protocol NBNRealmPropertyCellDelegate;
 

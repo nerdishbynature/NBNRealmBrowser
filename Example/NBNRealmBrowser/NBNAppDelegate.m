@@ -1,6 +1,6 @@
 #import "NBNAppDelegate.h"
 #import "NBNViewController.h"
-#import "RLMRealm.h"
+#import <Realm/Realm.h>
 
 #define isIOS8 __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
 
@@ -14,7 +14,9 @@
     self.window.rootViewController = navController;
 
     [self copyDataBaseIfNeeded];
-    [RLMRealm setSchemaVersion:1 withMigrationBlock:^(RLMMigration *migration, NSUInteger oldSchemaVersion) {
+    [RLMRealm setSchemaVersion:1
+                forRealmAtPath:[RLMRealm defaultRealmPath]
+            withMigrationBlock:^(RLMMigration *migration, NSUInteger oldSchemaVersion) {
         if (oldSchemaVersion < 1) {
             // Nothing to do!
             // Realm will automatically detect new properties and removed properties

@@ -1,6 +1,8 @@
 #import "NBNRealmObjectsBrowser.h"
 #import "NBNRealmObjectBrowser.h"
 #import "UIViewController+NBNNavigation.h"
+#import <Realm/RLMObjectSchema.h>
+#import <Realm/RLMProperty.h>
 
 #define isIOS8 __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
 
