@@ -8,6 +8,16 @@
 
 static NSString *CellIdentifier = @"CellIdentifier";
 
+@interface RLMRealm ()
++ (instancetype)realmWithPath:(NSString *)path
+                          key:(NSData *)key
+                     readOnly:(BOOL)readonly
+                     inMemory:(BOOL)inMemory
+                      dynamic:(BOOL)dynamic
+                       schema:(RLMSchema *)customSchema
+                        error:(NSError **)outError;
+@end
+
 @interface NBNRealmBrowser ()
 @property (nonatomic) RLMRealm *realm;
 @property (nonatomic) NSArray *objectSchema;
@@ -23,6 +33,11 @@ static NSString *CellIdentifier = @"CellIdentifier";
 #endif
 
 @implementation NBNRealmBrowser
+
++ (id)browserWithRealmAtPath:(NSString *)realmPath {
+    RLMRealm *realm = [RLMRealm realmWithPath:realmPath key:nil readOnly:NO inMemory:NO dynamic:YES schema:nil error:nil];
+    return [self browserWithRealm:realm];
+}
 
 + (id)browserWithRealm:(RLMRealm *)realm {
     NBNRealmBrowser *realmBrowser = [[NBNRealmBrowser alloc] init];
