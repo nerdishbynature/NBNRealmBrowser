@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "NBNRealmBrowser"
-  s.version          = "0.3.0"
+  s.version          = "0.4.0"
   s.summary          = "NBNRealmBrowser is the iOS companion to the Realm Browser for Mac."
   s.description      = <<-DESC
                         NBNRealmBrowser is the iOS companion to the
