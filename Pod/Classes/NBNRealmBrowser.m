@@ -40,7 +40,7 @@ static NSString *CellIdentifier = @"CellIdentifier";
 }
 
 + (id)browserWithRealm:(RLMRealm *)realm {
-    NBNRealmBrowser *realmBrowser = [[NBNRealmBrowser alloc] init];
+    NBNRealmBrowser *realmBrowser = [[NBNRealmBrowser alloc] initWithRealm:realm];
 #if isIOS8
     UISplitViewController *splitViewController = [[UISplitViewController alloc] init];
     splitViewController.modalPresentationStyle = UIModalTransitionStyleCoverVertical;
