@@ -18,6 +18,8 @@ profile
 DerivedData
 *.hmap
 *.ipa
+*.gcno
+*.gcda
 
 # AppCode
 .idea/

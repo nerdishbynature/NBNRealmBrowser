@@ -1,4 +1,4 @@
-#import <Realm/Realm/RLMObject.h>
+#import <Realm/RLMObject.h>
 #import <Foundation/Foundation.h>
 #import <Realm/Realm.h>
 

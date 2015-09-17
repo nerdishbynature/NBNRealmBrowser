@@ -1,0 +1,2 @@
+workspace "Example/NBNRealmBrowser.xcworkspace"
+scheme "NBNRealmBrowser-Example"

@@ -1,7 +1,9 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
-pod "NBNRealmBrowser", :path => "../"
+target "NBNRealmBrowser" do
+  pod "NBNRealmBrowser", :path => "../"
+end
 
-target "Tests", :exclusive => true do
-  pod 'KIF', '~> 3.1.0'
+target "Tests" do
+  pod 'KIF', '~> 3.3.0'
 end
