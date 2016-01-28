@@ -78,6 +78,9 @@ static NSString *CellIdentifier = @"CellIdentifier";
     [super viewDidLoad];
     [self setupDismissButton];
     [self setupSearch];
+#if isIOS8
+    self.splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
+#endif
 }
 
 - (void)setupSearch {
