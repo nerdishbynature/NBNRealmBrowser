@@ -1,4 +1,9 @@
+input_format: profdata
 xcodeproj: Example/NBNRealmBrowser.xcodeproj
+scheme: NBNRealmBrowser-Demo
 source_directory: Pod/Classes/
+output_directory: slather-report
 ignore:
+  - ../**/*/Xcode*
   - Tests/*
+
