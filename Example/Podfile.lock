@@ -2,11 +2,11 @@ PODS:
   - KIF (3.3.0):
     - KIF/Core (= 3.3.0)
   - KIF/Core (3.3.0)
-  - NBNRealmBrowser (0.4.0):
+  - NBNRealmBrowser (0.5.0):
     - Realm (~> 0.95)
-  - Realm (0.98.3):
-    - Realm/Headers (= 0.98.3)
-  - Realm/Headers (0.98.3)
+  - Realm (0.98.4):
+    - Realm/Headers (= 0.98.4)
+  - Realm/Headers (0.98.4)
 
 DEPENDENCIES:
   - KIF (~> 3.3.0)
@@ -18,8 +18,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   KIF: 0a82046d06f3648799cac522d2d0f7934214caac
-  NBNRealmBrowser: 70b7e82fe38972b92621c0c4a479d0cbb405a385
-  Realm: c6a7d00221a2d5177810a674aebd40c5e0b70b0f
+  NBNRealmBrowser: a94bd7d6f5e9df779e0a95c5f416467b37dbb134
+  Realm: 7745674cb1b7cb2a84a655bfd420b86efdaad36e
 
 PODFILE CHECKSUM: 4b17807ea5e194610f4689fa1d6de644dc1ce9db
 
